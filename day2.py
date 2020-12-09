@@ -1,5 +1,4 @@
-raw_data = """
-9-10 m: mmmmnxmmmwm
+raw_data = """9-10 m: mmmmnxmmmwm
 6-8 w: wpwwhxnv
 4-6 n: trwpnnnvq
 12-15 p: zfpmpphpgghpppppppp
@@ -1001,5 +1000,20 @@ raw_data = """
 17-18 b: jnlntbblbbqbkqmbbb
 """
 
+import io
+
+data = io.StringIO(raw_data)
 data_list = data.readlines()
 
+for i in data_list:
+    string = i.split("\n")[1]
+    minnum = i.split("-")[0]
+    string = i.split("-")[1]
+    maxnum = string.split(" ")[0]
+    string = string.split(" ",1)[1]
+    letter = string.split(": ")[0]
+    string = string.split(": ")[1]
+print(minnum)
+print(maxnum)
+print(letter)
+print(string)
