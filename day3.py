@@ -320,17 +320,44 @@ raw_data = """..#......###....#...##..#.#....
 ........#.####.........#.#.#...
 #...........##...#.........#..#
 ...........#..#......#...#.#...
-....##...##.....#.....#........
-"""
+....##...##.....#.....#........"""
 
 import io
+import math
 
 data = io.StringIO(raw_data)
 data_list = data.readlines()
 
-data_list
+trees = 0
+moretrees = []
+hor_directions = [1,3,5,7,1]
+ver_directions = [1,1,1,1,2]
+n = 0
+count = 0
+
+for i in data_list:
+    string = i.strip("\n")
+    
+    num = n % 31 
+    if string[num] == "#":
+        trees += 1
+    n += 3
 
 
 
-.strip("\n")
+for b in hor_directions:
+    n = 0
+    moretrees.append(0)
+    for i in data_list:
+        string = i.strip("\n")
+        
+        num = n % 31 
+        if n%ver_directions[count] == 0:
+            if string[num] == "#":
+                moretrees[count] += 1
+        n += b
+    count += 1
 
+
+print("Answer 1: " + str(trees))
+print("Answer 2: " + str(math.prod(moretrees)))
