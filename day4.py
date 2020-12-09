@@ -1142,54 +1142,65 @@ data = raw_data.split("\n\n")
 keys = ['byr','iyr','eyr','hgt','hcl','ecl','pid']
 good_passports = 0
 
-for i in data:
+for i in data:    
     fields = dict(s.split(':',1) for s in i.split())
     valid = True
+    numkeys = 0
     for n in keys:
         if n not in fields:
-            valid = False
+            passes = False
         else:
             if n == 'byr':
+                numkeys += 1
                 if not fields[n].isnumeric():
                     valid = False
-                if not 1920 <= n <= 2002:
+                if not 1920 <= int(fields[n]) <= 2002:
                     valid = False
             if n == 'iyr':
+                numkeys += 1
                 if not fields[n].isnumeric():
                     valid = False
-                if not 2010 <= n <= 2020:
+                if not 2010 <= int(fields[n]) <= 2020:
                     valid = False
             if n == 'eyr':
+                numkeys += 1
                 if not fields[n].isnumeric():
                     valid = False
-                if not 2020 <= n <= 2030:
+                if not 2020 <= int(fields[n]) <= 2030:
                     valid = False
             if n == 'hgt':
+                numkeys += 1
                 if fields[n][-2:] == 'cm':
                     if not fields[n][:-2].isnumeric():
                         valid = False
-                    elif not 150 <= fields[n][:-2] <= 193:
+                    elif not 150 <= int(fields[n][:-2]) <= 193:
                         valid = False
-                if fields[n][-2:] == 'in':
+                elif fields[n][-2:] == 'in':
                     if not fields[n][:-2].isnumeric():
                         valid = False
-                    elif not 59 <= fields[n][:-2] <= 76:
+                    elif not 59 <= int(fields[n][:-2]) <= 76:
                         valid = False
+                else:
+                    valid = False
             if n == 'hcl':
-                if not fields[n][1:] == '#':
+                numkeys += 1
+                search=re.compile(r'[^a-f0-9]').search
+                if not fields[n][:1] == '#':
                     valid = False
                 elif len(fields[n]) != 7:
                     valid = False
-                search=re.compile(r'a-f0-9').search
-                elif not bool(search(fields[n][:-6])):
+                elif bool(search(fields[n][-6:])):
                     valid = False
             if n == 'ecl':
+                numkeys += 1
                 if fields[n] not in ['amb','blu','brn','gry','grn','hzl','oth']:
                     valid = False
             if n == 'pid':
+                numkeys += 1
                 if not fields[n].isnumeric() or len(fields[n]) != 9 :
+                    valid = False
 
-    if valid == True:
+    if numkeys == 7 and valid == True:
         good_passports += 1
 
 print(good_passports)
