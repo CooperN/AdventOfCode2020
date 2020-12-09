@@ -1005,6 +1005,9 @@ import io
 data = io.StringIO(raw_data)
 data_list = data.readlines()
 
+valid_passwords = 0
+valid_passwords2 = 0
+
 for i in data_list:
     string = i.split("\n")[1]
     minnum = i.split("-")[0]
@@ -1013,7 +1016,24 @@ for i in data_list:
     string = string.split(" ",1)[1]
     letter = string.split(": ")[0]
     string = string.split(": ")[1]
-print(minnum)
-print(maxnum)
-print(letter)
-print(string)
+
+    count = string.count(letter)
+
+    if count <= int(maxnum):
+        if count >= int(minnum):
+            valid_passwords += 1
+
+
+    if string[int(minnum) - 1] == letter:
+        if string[int(maxnum) - 1] != letter:
+            valid_passwords2 += 1
+
+    if string[int(minnum) - 1] != letter:
+        if string[int(maxnum) - 1] == letter:
+            valid_passwords2 += 1
+
+
+    
+
+print("Answer 1: " + str(valid_passwords))
+print("Answer 2: " + str(valid_passwords2))
