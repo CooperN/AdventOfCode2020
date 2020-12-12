@@ -1176,11 +1176,11 @@ for i in data:
                     elif not 59 <= fields[n][:-2] <= 76:
                         valid = False
             if n == 'hcl':
+                search=re.compile(r'a-f0-9').search
                 if not fields[n][1:] == '#':
                     valid = False
                 elif len(fields[n]) != 7:
                     valid = False
-                search=re.compile(r'a-f0-9').search
                 elif not bool(search(fields[n][:-6])):
                     valid = False
             if n == 'ecl':
@@ -1188,7 +1188,7 @@ for i in data:
                     valid = False
             if n == 'pid':
                 if not fields[n].isnumeric() or len(fields[n]) != 9 :
-
+                    "something"
     if valid == True:
         good_passports += 1
 
