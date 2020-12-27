@@ -660,10 +660,12 @@ code = {}
 num = 0
 accumulator = 0
 
-def linetry(num, line):
+def linetry(key, line):
     testcode = code
-    testcode[num] = line
+    testcode[key] = line
     accumulator = 0
+    TestedValues = []
+    num = 0
     while num not in TestedValues and num < len(code):
         TestedValues.append(num)
         if code[num][0] == 'acc':
@@ -706,7 +708,7 @@ for key, value in code.items():
             newline = ['jmp', value[1]]
         ans = linetry(key, newline)
         if ans:
-            print("Q2 - program runs by changing line " + str(key))
+            print("Q2 - program runs by changing line " + str(key+1))
             print(value)
             print("to")
             print(newline)
