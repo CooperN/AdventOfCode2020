@@ -666,7 +666,13 @@ def linetry(key, line):
     accumulator = 0
     TestedValues = []
     num = 0
-    while num not in TestedValues and num < len(code):
+    while num not in TestedValues:
+        if num == len(code):
+            ans = [accumulator, num]
+            return ans
+        elif num > len(code):
+            print('Num went too high - ' + str(num))
+            return False
         TestedValues.append(num)
         if code[num][0] == 'acc':
             accumulator += int(code[num][1])
@@ -675,10 +681,7 @@ def linetry(key, line):
             num += 1
         elif code[num][0] == 'jmp':
             num = num + int(code[num][1])
-    if num == len(code):
-        return accumulator
-    else:
-        return False
+    return False
 
 for line in data:
     code[num] = line.split()
@@ -712,5 +715,6 @@ for key, value in code.items():
             print(value)
             print("to")
             print(newline)
-            print("Accumulator is equal to: " + str(ans))
+            print("Accumulator is equal to: " + str(ans[0]))
+            print("Line is " + str(ans[1]))
         
