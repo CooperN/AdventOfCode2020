@@ -1,7 +1,3 @@
-#account proof 1212488-20201206-47944ac0
-
-# stars
-
 with open("C:/Users/Cooper/Downloads/input.txt",'r') as file:
     expenses = file.readlines()
     cleandata = []
